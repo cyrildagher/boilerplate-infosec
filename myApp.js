@@ -1,12 +1,18 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const helmet = require('helmet');
 const app = express();
-app.use(helmet.hidePoweredBy());
-
-
-
-
-
+app.use(helmet({
+  frameguard: { action: 'deny' },
+  hsts: { maxAge: 7776000, force: true },
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", 'trusted-cdn.com']
+    }
+  },
+  noCache: true
+}));
 
 
 
